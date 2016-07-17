@@ -9,14 +9,21 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Xiaocao Hu</p>
-        </footer>
+    <div class="navbar navbar-inverse" role="navigation">
+        <a class="navbar-band" href="#">Sports Store</a>
     </div>
-
+    <div class="row panel">
+        <div id="categories" class="col-xs-3">
+            Put something useful here
+        </div>
+        <div class="col-xs-8">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Xiaocao Hu</p>
+            </footer>
+        </div>
+    </div>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>

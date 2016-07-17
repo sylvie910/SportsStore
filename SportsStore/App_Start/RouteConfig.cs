@@ -13,6 +13,13 @@ namespace SportsStore
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            //should list before the default route
+            routes.MapRoute(
+                name: null,
+                url: "Page{page}",
+                defaults: new { controller = "Home", action = "Index" }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
