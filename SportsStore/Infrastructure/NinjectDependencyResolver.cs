@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Ninject;
+using SportsStore.Abstract;
+using SportsStore.Concrete;
 
 namespace SportsStore.Infrastructure
 {
@@ -27,7 +29,7 @@ namespace SportsStore.Infrastructure
 
         private void AddBindings()
         {
-            //to do
+            _kernel.Bind<IProductRepository>().To<EFProductRepository>();
         }
 
     }
