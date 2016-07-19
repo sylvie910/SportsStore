@@ -17,40 +17,54 @@ namespace SportsStore.Controllers
             this.repository = repository;
         }
 
-        public ActionResult Index(string returnUrl)
+        public ActionResult Index(Cart cart, string returnUrl)
         {
-            return View(new CartViewModel { Cart = GetCart(), ReturnUrl = returnUrl });
+            return View(new CartViewModel { Cart = cart, ReturnUrl = returnUrl });
         }
 
-        public RedirectToRouteResult AddToCart(int productId, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products.FirstOrDefault(p => p.ProductId == productId);
             if (product != null)
             {
-                GetCart().AddItem(product, 1);
+                cart.AddItem(product, 1);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToRouteResult RemoveFromCart(int productId, string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products.FirstOrDefault(p => p.ProductId == productId);
             if (product != null)
             {
-                GetCart().RemoveItem(product);
+                cart.RemoveItem(product);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        private Cart GetCart()
+        public PartialViewResult Summary(Cart cart)
         {
-            Cart cart = (Cart)Session["Cart"];
-            if (cart == null)
+            return PartialView(cart);
+        }
+
+        public ActionResult Checkout()
+        {
+            return View(new ShippingAddress());
+        }
+
+        [HttpPost]
+        public ActionResult Checkout(Cart cart, ShippingAddress shippingAddress)
+        {
+            if (!cart.CartProducts.Any())
             {
-                cart = new Cart();
-                Session["Cart"] = cart;
+                ModelState.AddModelError("","Your cart is empty!");
             }
-            return cart;
+            if (ModelState.IsValid)
+            {
+                cart.Clear();
+                return View("Completed");
+            }
+            return View(shippingAddress);
         }
     }
 

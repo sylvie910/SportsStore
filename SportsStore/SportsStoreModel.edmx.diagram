@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="SportsStoreModel.Product" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SportsStoreModel.CartProduct" Width="1.5" PointX="3" PointY="1" />
         <AssociationConnector Association="SportsStoreModel.FK_CartProduct_Product" />
+        <EntityTypeShape EntityType="SportsStoreModel.ShippingAddress" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

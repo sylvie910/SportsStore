@@ -27,5 +27,6 @@ namespace SportsStore
     
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<CartProduct> CartProducts { get; set; }
+        public virtual DbSet<ShippingAddress> ShippingAddresses { get; set; }
     }
 }

@@ -3,9 +3,14 @@
 @{
     ViewBag.Title = "Sports Store: Your Cart";
 }
+<style>
+    #cartTable td {
+        vertical-align: middle;
+    }
+</style>
 
 <h2>Your Cart</h2>
-<table class="table">
+<table id="cartTable" class="table">
     <thead>
         <tr>
             <th>Quantity</th>
@@ -22,6 +27,14 @@
                 <td class="text-left">@cartProduct.Product.Name</td>
                 <td class="text-right">@cartProduct.Product.Price.ToString("C")</td>
                 <td class="text-right">@((cartProduct.Quantity * cartProduct.Product.Price).ToString("C"))</td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("ProductId", cartProduct.Product.ProductId)
+                        @Html.HiddenFor(p => p.ReturnUrl)
+                        <input type="submit" class="btn btn-warning btn-sm" value="Remove" />
+                    }
+                </td>
             </tr>
         }
     </tbody>
@@ -36,4 +49,5 @@
 </table>
 <div class="text-center">
     <a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
+    @Html.ActionLink("Checkout", "Checkout", null, new { @class = "btn btn-primary" })
 </div>

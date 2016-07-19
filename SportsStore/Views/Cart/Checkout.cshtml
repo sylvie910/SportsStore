@@ -1,0 +1,35 @@
+﻿@model ShippingAddress
+
+@{
+    ViewBag.Title = "SportsStore: Checkout";
+}
+
+<h3>Shipping Address</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    foreach (var property in ViewData.ModelMetadata.Properties)
+    {
+        if (property.PropertyName != "GiftWrap"&&property.PropertyName!="CustomerId")
+        {
+            <div class="form-group">
+                <label>
+                    @(property.DisplayName ?? property.PropertyName )
+                </label>
+                @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+            </div>
+        }
+    }
+    <h4>Options</h4>
+    <div class="checkbox">
+        <label>
+            @Html.EditorFor(x => x.GiftWrap)
+            Gift wrap these items
+        </label>
+    </div>
+    <div class="text-center">
+        <input type="submit" class="btn btn-primary" value="Submit Order" />
+    </div>
+}
+
